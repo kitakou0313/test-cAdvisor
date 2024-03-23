@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # アプリケーションのビルド
-RUN CGO_ENABLED=0 GOOS=linux go build -o myapp .
+RUN CGO_ENABLED=0 GOOS=linux go build -o myapp src/main.go
 
 # 実行用ステージ
 FROM alpine:latest

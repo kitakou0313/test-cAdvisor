@@ -1,6 +1,12 @@
 version: '3'
 
 services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - MALLOC_INTERVAL_MILLISECOND=10000
   cadvisor:
     image: google/cadvisor:latest
     container_name: cadvisor
