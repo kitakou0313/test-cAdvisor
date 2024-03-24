@@ -6,7 +6,9 @@ services:
       context: ./
       dockerfile: Dockerfile
     environment:
-      - MALLOC_INTERVAL_MILLISECOND=10000
+      - MALLOC_INTERVAL_MILLISECOND=1000
+    volumes:
+      - ./log:/var/log/myapp:rw
   cadvisor:
     image: google/cadvisor:latest
     container_name: cadvisor
