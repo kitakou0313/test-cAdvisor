@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - MALLOC_INTERVAL_MILLISECOND=1000
+      - MALLOC_INTERVAL_MIBIBYTE=1024
     volumes:
       - ./log:/var/log/myapp:rw
   cadvisor:
