@@ -49,6 +49,8 @@ func readMemoryStat() string {
 
 func main() {
 	mallocInterval, err := strconv.Atoi(os.Getenv("MALLOC_INTERVAL_MILLISECOND"))
+	mallocSize, err := strconv.Atoi(os.Getenv("MALLOC_INTERVAL_MIBIBYTE"))
+
 	if err != nil {
 		panic(err)
 	}
@@ -59,7 +61,7 @@ func main() {
 	i := 0
 
 	for range timerForMalloc.C {
-		memory[i] = make([]byte, 1024*1024)
+		memory[i] = make([]byte, mallocSize*1024)
 		i += 1
 		writeToFile(readMeminfo())
 		writeToFile(readMemoryStat())
