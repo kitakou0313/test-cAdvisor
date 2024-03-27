@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-func writeToFile(data string) {
-	file, err := os.OpenFile("/var/log/myapp/log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+func writeToFile(data string, logFilePath string) {
+	file, err := os.OpenFile(logFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Println("ファイルを開く際にエラーが発生しました:", err)
 		return
@@ -49,11 +49,16 @@ func readMemoryStat() string {
 
 func main() {
 	mallocInterval, err := strconv.Atoi(os.Getenv("MALLOC_INTERVAL_MILLISECOND"))
-	mallocSize, err := strconv.Atoi(os.Getenv("MALLOC_INTERVAL_MIBIBYTE"))
-
 	if err != nil {
 		panic(err)
 	}
+
+	mallocSize, err := strconv.Atoi(os.Getenv("MALLOC_INTERVAL_MIBIBYTE"))
+	if err != nil {
+		panic(err)
+	}
+
+	logFilePath := os.Getenv("LOG_FILE_PATH")
 
 	timerForMalloc := time.NewTicker(time.Millisecond * time.Duration(mallocInterval))
 	memory := make(map[int][]byte)
@@ -63,8 +68,8 @@ func main() {
 	for range timerForMalloc.C {
 		memory[i] = make([]byte, mallocSize*1024)
 		i += 1
-		writeToFile(readMeminfo())
-		writeToFile(readMemoryStat())
+		writeToFile(readMeminfo(), logFilePath)
+		writeToFile(readMemoryStat(), logFilePath)
 	}
 
 }
