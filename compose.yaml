@@ -8,6 +8,7 @@ services:
     environment:
       - MALLOC_INTERVAL_MILLISECOND=1000
       - MALLOC_INTERVAL_MIBIBYTE=1024
+      - LOG_FILE_PATH=/var/log/myapp/log
     volumes:
       - ./log:/var/log/myapp:rw
   cadvisor:
