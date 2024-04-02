@@ -15,7 +15,7 @@ services:
     image: google/cadvisor:latest
     container_name: cadvisor
     privileged: true
-    command: ["/usr/bin/cadvisor", "-logtostderr", "-port", "80"]
+    command: ["/usr/bin/cadvisor", "-logtostderr"]
     ports:
       - "8080:8080"
     volumes:
